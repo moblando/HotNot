@@ -49,6 +49,7 @@ def show_question_screen(genre):
     frame = tk.Frame(window, bg='white', width=400, height=300)
     frame.place(relx=0.5, rely=0.5, anchor="center")
 
+    # Get the random question for the genre
     question = get_random_question(genre["subject_id"])
     if question:
         question_label = tk.Label(frame, text=f"Question: {question['question_text']}", font=("Arial", 16), wraplength=300)
@@ -72,7 +73,7 @@ def show_question_screen(genre):
         tk.Button(frame, text="Quit", font=("Arial", 14), command=lambda: quit_program(window)).pack(pady=20)
 
     window.mainloop()
-
+    
 def show_exit_button(window):
     tk.Button(window, text="Exit", font=("Arial", 14), command=window.destroy).pack(pady=20)
 
@@ -110,3 +111,4 @@ def start_quiz_loop(genre_name, interval_seconds, total_duration_seconds):
 if __name__ == "__main__":
     # Example usage
     start_quiz_loop("Math", 0, 0)
+
