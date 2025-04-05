@@ -5,7 +5,7 @@ import sys
 import app
 
 # Mock genre list
-genres = ["Math", "Science", "History"]
+genres = ["Math", "Science", "History", "Geography", "Sports"]
 
 def show_settings_screen():
     window = tk.Tk()
