@@ -5,3 +5,6 @@ https://dev.mysql.com/downloads/workbench/
 
 how to install sql download
 https://dev.mysql.com/downloads/mysql/
+
+install mysql connector
+pip install mysql-connector-python
