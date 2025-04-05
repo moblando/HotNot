@@ -65,9 +65,10 @@ def show_question_screen(genre):
             user_answer = answer_input.get().strip()
             if user_answer.lower() == question["answer"].lower():
                 result_label.config(text="Correct! You can continue.", fg="green")
+                show_exit_button(window)
             else:
                 result_label.config(text=f"Incorrect. The correct answer was: {question['answer']}", fg="red")
-            show_exit_button(window)
+            # show_exit_button(window)
 
         tk.Button(frame, text="Submit", font=("Arial", 14), command=check_answer).pack(pady=20)
         tk.Button(frame, text="Quit", font=("Arial", 14), command=lambda: quit_program(window)).pack(pady=20)

@@ -4,10 +4,10 @@ import quizFlix
 
 def initialize_db(): 
     # run the init_db.py file to initialize the database
-    init_db.main()
+    init_db.main() 
     print("Database initialized.")
 
-def run_quiz_flix():
+def run_quiz_flix(): 
     quizFlix.show_settings_screen()
     print("Program started.")
     
