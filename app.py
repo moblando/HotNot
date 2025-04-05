@@ -36,14 +36,19 @@ def get_random_question(subject_id):
 
 def show_question_screen(genre):
     window = tk.Tk()
-    window.attributes('-fullscreen', True)
-    window.configure(bg='black')
-    window.bind('<F3>', on_f3)
-    window.protocol("WM_DELETE_WINDOW", lambda: None)
+    window.attributes('-fullscreen', True)  # Fullscreen mode
+    window.configure(bg='black')  # Black background for the quiz screen
+    window.bind('<F3>', on_f3)  # Bind the F3 key to exit the loop
+    window.protocol("WM_DELETE_WINDOW", lambda: None)  # Disable the close button
 
+    # Ensure the window stays on top of other windows (e.g., video)
+    window.attributes("-topmost", True)
+
+    # Create the quiz frame centered on the screen
     frame = tk.Frame(window, bg='white', width=400, height=300)
     frame.place(relx=0.5, rely=0.5, anchor="center")
 
+    # Get the random question for the genre
     question = get_random_question(genre["subject_id"])
     if question:
         question_label = tk.Label(frame, text=f"Question: {question['question_text']}", font=("Arial", 16), wraplength=300)
@@ -66,7 +71,7 @@ def show_question_screen(genre):
         tk.Button(frame, text="Submit", font=("Arial", 14), command=check_answer).pack(pady=20)
 
     window.mainloop()
-
+    
 def show_exit_button(window):
     tk.Button(window, text="Exit", font=("Arial", 14), command=window.destroy).pack(pady=20)
 
