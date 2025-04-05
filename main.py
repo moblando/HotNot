@@ -17,4 +17,4 @@ if __name__ == '__main__':
     initialize_db()
 
     # # Run quizFlix
-    # run_quiz_flix()
+    # run_quiz_flix()  

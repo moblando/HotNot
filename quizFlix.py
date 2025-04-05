@@ -36,18 +36,22 @@ def show_settings_screen():
     # Function to start the quiz
     def start_quiz():
         delay = delay_entry.get()
-        duration = duration_entry.get()
+        duration = delay_entry.get()
+
         genre = genre_var.get()
 
         try:
-            delay_minutes = int(delay)
-            duration_minutes = int(duration)
+            delay_minutes = float(delay)
+            duration_minutes = float(duration)
+
+            delay_seconds = delay_minutes * 60
+            duration_seconds = duration_minutes * 60
 
             # Close the settings window
             window.destroy()
 
             # Execute app.py with the collected inputs
-            app.start_quiz_loop(genre, delay_minutes * 60, duration_minutes * 60)
+            app.start_quiz_loop(genre, delay_seconds, duration_seconds)
 
         except ValueError:
             messagebox.showerror("Invalid Input", "Please enter valid numbers for delay and duration.")
