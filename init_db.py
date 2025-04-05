@@ -51,6 +51,31 @@ def main():
     cursor.execute("INSERT INTO questions (subject_id, question_text, answer) VALUES (1, 'What is 45 / 9?', '5')")
     cursor.execute("INSERT INTO questions (subject_id, question_text, answer) VALUES (1, 'What is the value of pi rounded to 2 decimal places?', '3.14')")
 
+    # Additional simple math questions (subject_id = 1)
+    additional_math_questions = [
+        ("What is 5 + 3?", "8"),
+        ("What is 9 - 4?", "5"),
+        ("What is 6 * 7?", "42"),
+        ("What is 18 / 3?", "6"),
+        ("What is 15 + 10?", "25"),
+        ("What is 20 - 5?", "15"),
+        ("What is 12 * 3?", "36"),
+        ("What is 16 / 4?", "4"),
+        ("What is 3 + 7?", "10"),
+        ("What is 8 - 2?", "6"),
+        ("What is 9 * 9?", "81"),
+        ("What is 64 / 8?", "8"),
+        ("What is 5 squared?", "25"),
+        ("What is 2 * 8?", "16"),
+        ("What is 7 + 5?", "12"),
+        ("What is 14 - 7?", "7"),
+        ("What is 10 + 15?", "25"),
+        ("What is 12 - 8?", "4"),
+        ("What is 3 * 5?", "15"),
+        ("What is 20 / 5?", "4")
+    ]
+    for question, answer in additional_math_questions:
+        cursor.execute("INSERT INTO questions (subject_id, question_text, answer) VALUES (1, ?, ?)", (question, answer))
 
     # Science questions (subject_id = 2)
     cursor.execute("INSERT INTO questions (subject_id, question_text, answer) VALUES (2, 'What planet is known as the Red Planet?', 'Mars')")
@@ -99,8 +124,6 @@ def main():
     cursor.execute("INSERT INTO questions (subject_id, question_text, answer) VALUES (5, 'Who is the most decorated Olympian of all time?', 'Michael Phelps')")
     cursor.execute("INSERT INTO questions (subject_id, question_text, answer) VALUES (5, 'Which NBA player is known as the \"Black Mamba\"?', 'Kobe Bryant')")
 
-
-    
     # Commit the changes and close the connection
     conn.commit()
     conn.close()
