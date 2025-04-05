@@ -2,6 +2,7 @@ import tkinter as tk
 from tkinter import messagebox
 import subprocess
 import sys
+import app
 
 # Mock genre list
 genres = ["Math", "Science", "History"]
@@ -13,7 +14,7 @@ def show_settings_screen():
     window.configure(bg='white')
 
     # Delay Input (in minutes)
-    tk.Label(window, text="Delay Before Quiz (minutes):", font=("Arial", 12), bg='white').pack(pady=5)
+    tk.Label(window, text="Quiz Inteverals (minutes):", font=("Arial", 12), bg='white').pack(pady=5)
     delay_entry = tk.Entry(window, font=("Arial", 12))
     delay_entry.insert(0, "1")  # Default: 1 minute
     delay_entry.pack(pady=5)
@@ -46,7 +47,7 @@ def show_settings_screen():
             window.destroy()
 
             # Execute app.py with the collected inputs
-            subprocess.run([sys.executable, 'app.py', str(delay_minutes), str(duration_minutes), genre])
+            app.start_quiz_loop(genre, delay_minutes * 60, duration_minutes * 60)
 
         except ValueError:
             messagebox.showerror("Invalid Input", "Please enter valid numbers for delay and duration.")
