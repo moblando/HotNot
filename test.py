@@ -1,49 +1,41 @@
-#!/usr/bin/env python3
-
 import tkinter as tk
+from tkinter import messagebox
 import sqlite3
 import threading
 import time
-import random
 import pyautogui
 
-# -----------------
-# Database Helper Functions
-# ----------------- 
 
-def get_db_connection():
-    """Establish a connection to the SQLite database and use Row factory for dict-like access."""
-    conn = sqlite3.connect("quizDB")
-    conn.row_factory = sqlite3.Row
-    return conn
+#testing
+#-----
 
+import random
+
+
+# Mock data to replace database interaction
+genres = [
+    {"id": 1, "name": "Math"},
+    {"id": 2, "name": "Science"},
+    {"id": 3, "name": "History"},
+]
+
+questions = [
+    {"genre_id": 1, "question_text": "What is 2+2?", "correct_answer": "4"},
+    {"genre_id": 2, "question_text": "What is H2O?", "correct_answer": "Water"},
+    {"genre_id": 3, "question_text": "Who was the first president of the United States?", "correct_answer": "George Washington"},
+]
+
+# Function to get a random genre based on user input
 def get_genre_by_name(genre_name):
-    """
-    Retrieve a subject (genre) from the database by name (case-insensitive).
-    Returns a sqlite3.Row if found, or None if not found.
-    """
-    conn = get_db_connection()
-    cur = conn.cursor()
-    cur.execute("SELECT * FROM subjects WHERE lower(name) = lower(?)", (genre_name,))
-    genre = cur.fetchone()
-    conn.close()
-    return genre
+    for genre in genres:
+        if genre_name.lower() == genre['name'].lower():
+            return genre
+    return None
 
-def get_random_question(subject_id):
-    """
-    Retrieve a random question from the database for the given subject_id.
-    Uses SQLite's RANDOM() function.
-    """
-    conn = get_db_connection()
-    cur = conn.cursor()
-    cur.execute("SELECT * FROM questions WHERE subject_id = ? ORDER BY RANDOM() LIMIT 1", (subject_id,))
-    question = cur.fetchone()
-    conn.close()
-    return question
-
-# -----------------
-# Tkinter GUI Functions
-# -----------------
+# Function to get a random question based on genre
+def get_random_question(genre_id):
+    filtered_questions = [q for q in questions if q["genre_id"] == genre_id]
+    return random.choice(filtered_questions) if filtered_questions else None
 
 # Function to show the genre input screen
 def show_genre_input_screen():
@@ -52,14 +44,14 @@ def show_genre_input_screen():
     window.attributes('-fullscreen', True)  # Make it full screen
     window.configure(bg='black')
 
-    # Disable the close button
-    window.protocol("WM_DELETE_WINDOW", lambda : None)
+    # Make it so the window can't be closed
+    window.protocol("WM_DELETE_WINDOW", lambda: None)  # Disable close button
 
     # White box where the user can interact
     frame = tk.Frame(window, bg='white', width=400, height=300)
     frame.place(relx=0.5, rely=0.5, anchor="center")
 
-    # Instructions label
+    # Instructions label inside the white box
     instructions_label = tk.Label(frame, text="Enter Genre (e.g., Math, Science, History):", font=("Arial", 14))
     instructions_label.pack(pady=10)
 
@@ -67,17 +59,18 @@ def show_genre_input_screen():
     genre_input = tk.Entry(frame, font=("Arial", 14))
     genre_input.pack(pady=10)
 
-    # Label for feedback
+    # Result label for showing feedback
     result_label = tk.Label(frame, text="", font=("Arial", 14), fg='black')
     result_label.pack(pady=10)
 
-    # Button to submit genre and proceed to the question screen
+    # Button to submit genre and go to question screen
     def submit_genre():
         genre_name = genre_input.get().strip()
         genre = get_genre_by_name(genre_name)
+
         if genre:
-            window.destroy()  # Close the genre input window
-            show_question_screen(genre)  # Show the question screen with the selected genre
+            window.destroy()  # Close genre input window
+            show_question_screen(genre)  # Show the question screen
         else:
             result_label.config(text="Invalid genre. Please try again.", fg="red")
 
@@ -93,38 +86,40 @@ def show_question_screen(genre):
     window.attributes('-fullscreen', True)  # Make it full screen
     window.configure(bg='black')
 
-    # Disable the close button
-    window.protocol("WM_DELETE_WINDOW", lambda: None)
+    # Make it so the window can't be closed
+    window.protocol("WM_DELETE_WINDOW", lambda: None)  # Disable close button
 
-    # White box for question interaction
+    # White box where the user can interact
     frame = tk.Frame(window, bg='white', width=400, height=300)
     frame.place(relx=0.5, rely=0.5, anchor="center")
 
-    # Label to display the question
+    # Instructions label inside the white box
     question_label = tk.Label(frame, text="Please wait while we get your question...", font=("Arial", 16), wraplength=300)
     question_label.pack(pady=20)
 
-    # Retrieve a random question for the selected genre
-    question = get_random_question(genre["subject_id"])
+    # Get a random question for the selected genre
+    question = get_random_question(genre["id"])
+
     if question:
         question_label.config(text=f"Question: {question['question_text']}")
 
-        # Input for the answer
+        # Text input for answer
         answer_input = tk.Entry(frame, font=("Arial", 14))
         answer_input.pack(pady=10)
 
-        # Label to display feedback
+        # Result label for showing feedback
         result_label = tk.Label(frame, text="", font=("Arial", 14), fg='black')
         result_label.pack(pady=10)
 
         # Button to check the answer
         def check_answer():
             user_answer = answer_input.get().strip()
-            if user_answer.lower() == question["answer"].lower():
+
+            if user_answer.lower() == question["correct_answer"].lower():
                 result_label.config(text="Correct! You can continue.", fg="green")
-                show_exit_button(window)  # Show exit button after correct answer
+                show_exit_button(window)  # Show the exit button
             else:
-                result_label.config(text=f"Incorrect. The correct answer was: {question['answer']}", fg="red")
+                result_label.config(text=f"Incorrect. The correct answer was: {question['correct_answer']}", fg="red")
 
         submit_button = tk.Button(frame, text="Submit", font=("Arial", 14), command=check_answer)
         submit_button.pack(pady=20)
@@ -133,20 +128,16 @@ def show_question_screen(genre):
 
 # Function to display an exit button after the correct answer is given
 def show_exit_button(window):
+    # Create an exit button
     exit_button = tk.Button(window, text="Exit", font=("Arial", 14), command=window.destroy)
     exit_button.pack(pady=20)
 
-# -----------------
-# Main Execution
-# -----------------
-
-# Delay the popup window by 10 seconds before starting the quiz
+# Delay the popup window by 10 seconds
 def delayed_popup():
-    time.sleep(10)  # Wait for 10 seconds
-    pyautogui.press('space')
+    time.sleep(10)  # Wait for 10 seconds before showing the popup
     show_genre_input_screen()  # Show the genre input screen
 
-# Start the process with a delay
+# Start the process by delaying the popup
 delayed_popup()
 
 
