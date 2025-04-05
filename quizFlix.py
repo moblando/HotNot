@@ -87,14 +87,14 @@ class AppScreen:
             card = tk.Frame(
                 self.features_frame,
                 bg="white",
-                padx=15,  # Reduced from 20
-                pady=15,  # Reduced from 20
+                padx=15,
+                pady=15,
                 relief="groove",
                 bd=0,
                 highlightbackground="#dfe6e9",
                 highlightthickness=1
             )
-            card.grid(row=0, column=i, padx=10, sticky="nsew")  # Added sticky
+            card.grid(row=0, column=i, padx=10, sticky="nsew")
             
             # Feature icon
             icon = tk.Label(
@@ -122,7 +122,7 @@ class AppScreen:
                 font=("Segoe UI", 12),
                 bg="white",
                 fg="#7f8c8d",
-                wraplength=180  # Reduced from 200
+                wraplength=180
             )
             desc.pack(pady=(10, 0))
         
@@ -142,7 +142,7 @@ class AppScreen:
         self.description_label.pack()
         
         # Button frame
-        self.button_frame = tk.Frame(self.main_frame, bg="#000000")
+        self.button_frame = tk.Frame(self.main_frame, bg="#f0f2f5")  # Changed back to match background
         self.button_frame.pack(pady=30)
         
         # GitHub button
@@ -166,15 +166,19 @@ class AppScreen:
         self.github_button.bind("<Enter>", lambda e: self.github_button.config(bg="#757575", fg="#000000"))
         self.github_button.bind("<Leave>", lambda e: self.github_button.config(bg="#000000", fg="white"))
         
-        # Footer
+        # Create a black footer frame that spans the full width
+        self.footer_frame = tk.Frame(self.bg_canvas, bg="#000000", height=60)
+        self.footer_frame.pack(side="bottom", fill="x")
+        
+        # Footer content
         self.footer_label = tk.Label(
-            self.main_frame,
+            self.footer_frame,
             text="© 2025 QuizFlix | All Rights Reserved",
             font=("Segoe UI", 10),
-            bg="#f0f2f5",
-            fg="#95a5a6"
+            bg="#000000",
+            fg="#ffffff"  # White text for better contrast
         )
-        self.footer_label.pack(side="bottom", pady=20)
+        self.footer_label.pack(pady=20)  # Centered vertically in the footer
         
         self.root.mainloop()
 
