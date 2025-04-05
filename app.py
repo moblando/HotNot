@@ -60,7 +60,7 @@ def show_genre_input_screen():
     frame.place(relx=0.5, rely=0.5, anchor="center")
 
     # Instructions label
-    instructions_label = tk.Label(frame, text="Enter Genre (e.g., Math, Science, History):", font=("Arial", 14))
+    instructions_label = tk.Label(frame, text="Enter Genre (Geography, Math, Science, History):", font=("Arial", 14))
     instructions_label.pack(pady=10)
 
     # Text input for genre
