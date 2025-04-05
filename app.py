@@ -79,7 +79,7 @@ def start_quiz_loop(genre_name, interval_seconds, total_duration_seconds):
         print(f"Genre '{genre_name}' not found.")
         return
 
-    print(f"Starting quiz loop with genre '{genre_name}', interval {interval_seconds}s, and total duration {total_duration_seconds}s.")
+    print(f"Starting quiz loop with interval {interval_seconds}s, and total duration {total_duration_seconds}s.")
 
     def loop():
         start_time = time.time()

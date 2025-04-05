@@ -16,13 +16,11 @@ def show_settings_screen():
     # Delay Input (in minutes)
     tk.Label(window, text="Quiz Inteverals (minutes):", font=("Arial", 12), bg='white').pack(pady=5)
     delay_entry = tk.Entry(window, font=("Arial", 12))
-    delay_entry.insert(0, "1")  # Default: 1 minute
     delay_entry.pack(pady=5)
 
     # Duration Input (in minutes)
     tk.Label(window, text="Quiz Duration (minutes):", font=("Arial", 12), bg='white').pack(pady=5)
     duration_entry = tk.Entry(window, font=("Arial", 12))
-    duration_entry.insert(0, "5")  # Default: 5 minutes
     duration_entry.pack(pady=5)
 
     # Genre Dropdown
