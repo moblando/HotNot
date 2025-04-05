@@ -5,6 +5,7 @@ import sqlite3
 import threading
 import time
 import random
+import pyautogui
 
 # -----------------
 # Database Helper Functions
@@ -142,6 +143,7 @@ def show_exit_button(window):
 # Delay the popup window by 10 seconds before starting the quiz
 def delayed_popup():
     time.sleep(10)  # Wait for 10 seconds
+    pyautogui.press('space')
     show_genre_input_screen()  # Show the genre input screen
 
 # Start the process with a delay
