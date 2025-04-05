@@ -14,12 +14,12 @@ class AppScreen:
         
         # Create a main frame for content
         self.main_frame = tk.Frame(self.bg_canvas, bg="#f0f2f5")
-        self.main_frame.place(relx=0.5, rely=0.5, anchor="center", width=1000, height=900)
+        self.main_frame.place(relx=0.5, rely=0.5, anchor="center", relwidth=0.9, relheight=0.9)
         
-        # Custom font styles
-        self.title_font = ("Segoe UI", 32, "bold")
-        self.subtitle_font = ("Segoe UI", 16)
-        self.button_font = ("Segoe UI", 14, "bold")
+        # Custom font styles (dynamic scaling based on window size)
+        self.title_font = ("Segoe UI", int(32 * self.root.winfo_width() / 1080), "bold")
+        self.subtitle_font = ("Segoe UI", int(16 * self.root.winfo_width() / 1080))
+        self.button_font = ("Segoe UI", int(14 * self.root.winfo_width() / 1080), "bold")
         
         # Header with logo and title
         self.header_frame = tk.Frame(self.main_frame, bg="#f0f2f5")
@@ -100,7 +100,7 @@ class AppScreen:
             icon = tk.Label(
                 card,
                 text=feature["icon"],
-                font=("Segoe UI", 24),
+                font=("Segoe UI", int(24 * self.root.winfo_width() / 1080)),
                 bg="white"
             )
             icon.pack(pady=(0, 10))
@@ -109,7 +109,7 @@ class AppScreen:
             title = tk.Label(
                 card,
                 text=feature["title"],
-                font=("Segoe UI", 16, "bold"),
+                font=("Segoe UI", int(16 * self.root.winfo_width() / 1080), "bold"),
                 bg="white",
                 fg="#000000"
             )
@@ -119,7 +119,7 @@ class AppScreen:
             desc = tk.Label(
                 card,
                 text=feature["desc"],
-                font=("Segoe UI", 12),
+                font=("Segoe UI", int(12 * self.root.winfo_width() / 1080)),
                 bg="white",
                 fg="#000000",
                 wraplength=180
@@ -134,7 +134,7 @@ class AppScreen:
             self.desc_frame,
             text="QuizFlix transforms learning into an engaging experience with interactive quizzes,\n"
                  "personalized recommendations, and a vibrant community of learners.",
-            font=("Segoe UI", 14),
+            font=("Segoe UI", int(14 * self.root.winfo_width() / 1080)),
             bg="#f0f2f5",
             fg="#000000",
             justify="center"
@@ -174,7 +174,7 @@ class AppScreen:
         self.footer_label = tk.Label(
             self.footer_frame,
             text="© 2025 QuizFlix | All Rights Reserved",
-            font=("Segoe UI", 10),
+            font=("Segoe UI", int(10 * self.root.winfo_width() / 1080)),
             bg="#000000",
             fg="#ffffff"  # White text for better contrast
         )
