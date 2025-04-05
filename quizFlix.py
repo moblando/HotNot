@@ -36,7 +36,7 @@ def show_settings_screen():
     # Function to start the quiz
     def start_quiz():
         delay = delay_entry.get()
-        duration = delay_entry.get()
+        duration = duration_entry.get()
 
         genre = genre_var.get()
 

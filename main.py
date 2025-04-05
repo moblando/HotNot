@@ -2,7 +2,7 @@ import sys
 import init_db
 import quizFlix
 
-def initialize_db():
+def initialize_db(): 
     # run the init_db.py file to initialize the database
     init_db.main()
     print("Database initialized.")
@@ -17,4 +17,4 @@ if __name__ == '__main__':
     initialize_db()
 
     # # Run quizFlix
-    # run_quiz_flix()  
+    # run_quiz_flix()
