@@ -13,8 +13,8 @@ def run_quiz_flix():
     
 
 if __name__ == '__main__':
-    # Initialize the database
+    # # Initialize the database
     initialize_db()
 
-    # Run quizFlix
-    run_quiz_flix()
+    # # Run quizFlix
+    # run_quiz_flix()

@@ -8,10 +8,9 @@ import threading
 
 keep_running = True
 
-def on_f3(event):
-    global keep_running
-    print("F3 pressed — exiting loop.")
-    keep_running = False
+def quit_program(window):
+    print("Exiting program...")
+    window.quit()  # Close the Tkinter window
 
 def get_db_connection():
     conn = sqlite3.connect("quizDB")
@@ -38,8 +37,14 @@ def show_question_screen(genre):
     window = tk.Tk()
     window.attributes('-fullscreen', True)
     window.configure(bg='black')
-    window.bind('<F3>', on_f3)
     window.protocol("WM_DELETE_WINDOW", lambda: None)
+
+    # ensure window stays on top of other windows
+    window.attributes("-topmost", True)
+
+    # Quit button in the question window
+    # quit_button = tk.Button(window, text="Quit", font=("Arial", 14), command=lambda: quit_program(window))
+    # quit_button.pack(pady=20)
 
     frame = tk.Frame(window, bg='white', width=400, height=300)
     frame.place(relx=0.5, rely=0.5, anchor="center")
@@ -64,6 +69,7 @@ def show_question_screen(genre):
             show_exit_button(window)
 
         tk.Button(frame, text="Submit", font=("Arial", 14), command=check_answer).pack(pady=20)
+        tk.Button(frame, text="Quit", font=("Arial", 14), command=lambda: quit_program(window)).pack(pady=20)
 
     window.mainloop()
 

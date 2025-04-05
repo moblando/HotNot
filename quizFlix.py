@@ -22,7 +22,7 @@ def show_settings_screen():
     tk.Label(window, text="Quiz Duration (minutes):", font=("Arial", 12), bg='white').pack(pady=5)
     duration_entry = tk.Entry(window, font=("Arial", 12))
     duration_entry.pack(pady=5)
-
+ 
     # Genre Dropdown
     tk.Label(window, text="Select Subject:", font=("Arial", 12), bg='white').pack(pady=5)
     genre_var = tk.StringVar()
