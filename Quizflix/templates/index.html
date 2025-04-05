@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz App</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="content">
+        <h1>Welcome to the Quiz App</h1>
+        <p>Choose a genre to begin:</p>
+        <form action="/choose_genre" method="POST">
+            <label for="genre_name">Enter Genre (e.g., Math, Science, History):</label>
+            <input type="text" id="genre_name" name="genre_name" required>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+</body>
+</html>
