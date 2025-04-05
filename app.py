@@ -103,4 +103,4 @@ def start_quiz_loop(genre_name, interval_seconds, total_duration_seconds):
 
 if __name__ == "__main__":
     # Example usage
-    start_quiz_loop("Math", 60, 300)
+    start_quiz_loop("Math", 0, 0)
